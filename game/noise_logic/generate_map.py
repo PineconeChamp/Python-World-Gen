@@ -1,4 +1,4 @@
-import noise
+import noise_logic
 import matplotlib.pyplot as plt
 import numpy as np
 from numpy import gradient
@@ -11,7 +11,7 @@ lacunarity = 2.0
 
 def create_noise_grid(width, height, scale, octaves, persistence, lacunarity):
     noise_grid = [
-        [noise.pnoise2(x * scale, y * scale, octaves=octaves, persistence=persistence, lacunarity=lacunarity, repeatx=1024, repeaty=1024, base=42)
+        [noise_logic.pnoise2(x * scale, y * scale, octaves=octaves, persistence=persistence, lacunarity=lacunarity, repeatx=1024, repeaty=1024, base=42)
          for x in range(width)]
         for y in range(height)
     ]
@@ -34,6 +34,3 @@ def binarized_noise(noise_map):
                 case p if p >= 0:
                  noise_map[i][j] = 0.1
     return noise_map
-
-binarized_noise = binarized_noise(noise_grid)
-
