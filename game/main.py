@@ -1,6 +1,8 @@
 from game_logic.pygame_instance import PygameInstance
 from game_logic.middleware import add_tile_to_pygame
 from noise_logic.generate_map import CreateNoiseGrid, BinarizedNoise, ColouredMap
+from matplotlib import pyplot as plt
+import numpy as np
 import pygame
 
 window_settings = {
@@ -33,7 +35,6 @@ binarized_map = BinarizedNoise(map).apply()
 colored_map = ColouredMap(binarized_map).apply()
 
 running = True
-map_created = False
 
 while running:
     for event in pygame.event.get():

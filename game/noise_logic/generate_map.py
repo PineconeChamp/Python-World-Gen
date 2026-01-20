@@ -1,4 +1,5 @@
 import noise
+import math
 
 #scale = 0.05
 #octaves = 8
@@ -29,33 +30,27 @@ class BinarizedNoise:
         self.noise_map = noise_map
 
     def apply(self):
+        flattened_list = [v for row in self.noise_map for v in row]
+        sortvalues = flattened_list.copy()
+        sortvalues.sort()
+
+        max_value = sortvalues[-1]
+        min_value = sortvalues[0]
+
+        print(max_value, min_value)
+
+        map_max = 1.0
+        map_min = 0.0
+        
+        slope = (map_max - map_min) / (max_value - min_value)
+
         for i in range(len(self.noise_map)):
             for j in range(len(self.noise_map[i])):
-                match self.noise_map[i][j]:
-                    case p if p >= 0.9:
-                        self.noise_map[i][j] = 1
-                    case p if p >= 0.7:
-                        self.noise_map[i][j] = 1
-                    case p if p >= 0.5:
-                        self.noise_map[i][j] = 0.9
-                    case p if p >= 0.3:
-                        self.noise_map[i][j] = 0.8
-                    case p if p >= 0.1:
-                        self.noise_map[i][j] = 0.7
-                    case p if p >= 0:
-                        self.noise_map[i][j] = 0.6
-                    case p if p >= -0.1:
-                        self.noise_map[i][j] = 0.5
-                    case p if p >= -0.3:
-                        self.noise_map[i][j] = 0.4
-                    case p if p >= -0.5:
-                        self.noise_map[i][j] = 0.3
-                    case p if p >= -0.7:
-                        self.noise_map[i][j] = 0.2
-                    case p if p >= -0.9:
-                        self.noise_map[i][j] = 0.1
-                    case _:
-                        self.noise_map[i][j] = 0
+                
+                mapped_value = map_min + slope * (self.noise_map[i][j] - min_value)
+                self.noise_map[i][j] = round(mapped_value, 1)
+                print(round(mapped_value, 1))
+                
         return self.noise_map
 
 class ColouredMap:
@@ -87,6 +82,8 @@ class ColouredMap:
                     case 0.1:
                         self.binarized_map[i][j] = "#6685E9"
                     case 0:
+                        self.binarized_map[i][j] = "#2E489C"
+                    case _:
                         self.binarized_map[i][j] = "#2E489C"
                     
         return self.binarized_map
