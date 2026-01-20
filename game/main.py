@@ -1,6 +1,6 @@
 from game_logic.pygame_instance import PygameInstance
 from game_logic.middleware import add_tile_to_pygame
-from noise_logic.generate_map import CreateNoiseGrid, BinarizedNoise
+from noise_logic.generate_map import CreateNoiseGrid, BinarizedNoise, ColouredMap
 import pygame
 
 window_settings = {
@@ -30,6 +30,8 @@ map = map_object.noise_grid
 
 binarized_map = BinarizedNoise(map).apply()
 
+colored_map = ColouredMap(binarized_map).apply()
+
 running = True
 map_created = False
 
@@ -52,7 +54,8 @@ while running:
 
     for y in range (map_settings["size"]):
         for x in range (map_settings["size"]):
-            tile = add_tile_to_pygame(game.screen, (start_x_pos + x * offset_x, start_y_pos + y * offset_y), tile_size)
+            colour = colored_map[y][x]
+            tile = add_tile_to_pygame(game.screen, colour, (start_x_pos + x * offset_x, start_y_pos + y * offset_y), tile_size)
 
             tile_widgets.append(tile)
 

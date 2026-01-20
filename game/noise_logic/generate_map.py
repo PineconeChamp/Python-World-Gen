@@ -35,13 +35,58 @@ class BinarizedNoise:
                     case p if p >= 0.9:
                         self.noise_map[i][j] = 1
                     case p if p >= 0.7:
-                        self.noise_map[i][j] = 0.8
+                        self.noise_map[i][j] = 1
                     case p if p >= 0.5:
-                        self.noise_map[i][j] = 0.7
+                        self.noise_map[i][j] = 0.9
                     case p if p >= 0.3:
-                        self.noise_map[i][j] = 0.3
+                        self.noise_map[i][j] = 0.8
                     case p if p >= 0.1:
-                        self.noise_map[i][j] = 0.3
+                        self.noise_map[i][j] = 0.7
                     case p if p >= 0:
+                        self.noise_map[i][j] = 0.6
+                    case p if p >= -0.1:
+                        self.noise_map[i][j] = 0.5
+                    case p if p >= -0.3:
+                        self.noise_map[i][j] = 0.4
+                    case p if p >= -0.5:
+                        self.noise_map[i][j] = 0.3
+                    case p if p >= -0.7:
+                        self.noise_map[i][j] = 0.2
+                    case p if p >= -0.9:
                         self.noise_map[i][j] = 0.1
+                    case _:
+                        self.noise_map[i][j] = 0
         return self.noise_map
+
+class ColouredMap:
+    def __init__(self, binarized_map):
+        self.binarized_map = binarized_map
+
+    def apply(self):
+        for i in range(len(self.binarized_map)):
+            for j in range(len(self.binarized_map[i])):
+                match self.binarized_map[i][j]:
+                    case 1:
+                        self.binarized_map[i][j] = "#FFFFFF"
+                    case 0.9:
+                        self.binarized_map[i][j] = "#FFFFFF"
+                    case 0.8:
+                        self.binarized_map[i][j] = "#3D3833"
+                    case 0.7:
+                        self.binarized_map[i][j] = "#3D3833" 
+                    case 0.6:
+                        self.binarized_map[i][j] = "#3D3833"  
+                    case 0.5:
+                        self.binarized_map[i][j] = "#0B6112"
+                    case 0.4:
+                        self.binarized_map[i][j] = "#15831E"
+                    case 0.3:
+                        self.binarized_map[i][j] = "#22A82D"
+                    case 0.2:
+                        self.binarized_map[i][j] = "#E9B066"
+                    case 0.1:
+                        self.binarized_map[i][j] = "#6685E9"
+                    case 0:
+                        self.binarized_map[i][j] = "#2E489C"
+                    
+        return self.binarized_map
