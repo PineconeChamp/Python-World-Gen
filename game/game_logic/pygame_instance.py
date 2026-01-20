@@ -1,5 +1,4 @@
 import pygame
-from noise_logic.generate_map import create_noise_grid, binarized_noise
 
 class PygameInstance:
     def __init__(self, width, height):
@@ -11,6 +10,9 @@ class PygameInstance:
 
     def clear_screen(self, color=(0, 0, 0)):
         self.screen.fill(color)
+
+    def render(self):
+        pass
 
     def update_display(self):
         pygame.display.flip()
