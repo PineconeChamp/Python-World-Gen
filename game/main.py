@@ -60,6 +60,8 @@ while running:
 
             tile_widgets.append(tile)
 
+    
+
     game.update_display()
 
 pygame.quit()

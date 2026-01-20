@@ -8,18 +8,30 @@ import math
 
 class CreateNoiseGrid:
 
-    def __init__(self, width, height, scale, octaves, persistence, lacunarity):
+    def __init__(self, width, height, scale, octaves, persistence, lacunarity, base=12, x_offset=0, y_offset=0):
         self.width = width
         self.height = height
         self.scale = scale
         self.octaves = octaves
         self.persistence = persistence
         self.lacunarity = lacunarity
+        self.base = base
+        self.x_offset = x_offset
+        self.y_offset = y_offset
         self.noise_grid = self.generate_noise_grid()
 
     def generate_noise_grid(self):
         noise_grid = [
-            [noise.pnoise2(x * self.scale, y * self.scale, octaves=self.octaves, persistence=self.persistence, lacunarity=self.lacunarity, repeatx=1024, repeaty=1024, base=42)
+            [noise.pnoise2(
+                x * self.scale + self.x_offset,
+                y * self.scale + self.y_offset,
+                octaves=self.octaves,
+                persistence=self.persistence,
+                lacunarity=self.lacunarity,
+                repeatx=1024, repeaty=1024,
+                base=self.base
+                )
+
              for x in range(self.width)]
             for y in range(self.height)
         ]
@@ -76,9 +88,9 @@ class ColouredMap:
                     case 0.4:
                         self.binarized_map[i][j] = "#15831E"
                     case 0.3:
-                        self.binarized_map[i][j] = "#22A82D"
+                        self.binarized_map[i][j] = "#E1BD6F"
                     case 0.2:
-                        self.binarized_map[i][j] = "#E9B066"
+                        self.binarized_map[i][j] = "#6685E9"
                     case 0.1:
                         self.binarized_map[i][j] = "#6685E9"
                     case 0:
