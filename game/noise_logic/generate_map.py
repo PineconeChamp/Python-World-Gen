@@ -47,14 +47,14 @@ class CreateHeightReference:
 
         print(max_value, min_value)
 
-        world = np.array(height_ref)
+        #world = np.array(height_ref)
 
-        plt.figure(figsize=(6, 6))
-        plt.imshow(world, cmap="gray")
-        plt.colorbar(label="Noise value")
-        plt.title("2D Perlin Noise")
-        plt.axis("off")
-        plt.show()
+        #plt.figure(figsize=(6, 6))
+        #plt.imshow(world, cmap="gray")
+        #plt.colorbar(label="Noise value")
+        #plt.title("2D Perlin Noise")
+        #plt.axis("off")
+        #plt.show()
 
         return [max_value, min_value]
 
